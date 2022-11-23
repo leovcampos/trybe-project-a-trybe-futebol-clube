@@ -1,15 +1,19 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes, CreationOptional } from 'sequelize';
 import db from '.';
 import Match from './Match';
 
 class User extends Model {
-  // declare <campo>: <tipo>;
+  declare id: CreationOptional<number>;
+  declare username: string;
+  declare role: string;
+  declare email: string;
+  declare password: string;
 }
 
 User.init({
   // ... Campos
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
     autoIncrement: true,
   },
