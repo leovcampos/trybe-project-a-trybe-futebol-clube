@@ -4,7 +4,7 @@ import User from '../database/models/User';
 
 interface IReponse {
   statusCode: number | null,
-  message: string,
+  message: object,
 }
 
 class LoginService {
@@ -20,22 +20,22 @@ class LoginService {
 
   static async login(email: string, password: string): Promise<IReponse> {
     if (!email || !password) {
-      return { statusCode: 400, message: 'All fields must be filled' };
+      return { statusCode: 400, message: { message: 'All fields must be filled' } };
     }
 
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return { statusCode: 401, message: 'Incorrect email or password' };
+      return { statusCode: 401, message: { message: 'Incorrect email or password' } };
     }
 
     const validatePassword = await bcrypt.compare(password, user.password);
     if (!validatePassword) {
-      return { statusCode: 401, message: 'Incorrect email or password' };
+      return { statusCode: 401, message: { message: 'Incorrect email or password' } };
     }
 
     const token = LoginService.generateToken(user.id);
 
-    return { statusCode: null, message: token };
+    return { statusCode: null, message: { token } };
   }
 
   static async userRole(token: string): Promise<string | undefined> {
