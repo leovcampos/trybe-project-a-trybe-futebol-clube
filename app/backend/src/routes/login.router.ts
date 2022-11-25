@@ -6,3 +6,5 @@ const router = Router();
 router.post('/', (req: Request, res: Response) => {
   loginController.login(req, res);
 });
+
+export default router;
