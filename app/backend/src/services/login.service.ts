@@ -4,7 +4,7 @@ import User from '../database/models/User';
 
 interface IReponse {
   statusCode: number | null,
-  message: object,
+  message: object | string,
 }
 
 class LoginService {
@@ -35,7 +35,7 @@ class LoginService {
 
     const token = LoginService.generateToken(user.id);
 
-    return { statusCode: null, message: { token } };
+    return { statusCode: null, message: token };
   }
 
   static async userRole(token: string): Promise<string | undefined> {
