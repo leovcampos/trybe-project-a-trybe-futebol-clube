@@ -37,6 +37,12 @@ class LoginService {
 
     return { statusCode: null, message: token };
   }
+
+  static async userRole(token: string): Promise<string | undefined> {
+    const decoded = LoginService.decodeToken(token);
+    const user = await User.findByPk(decoded.data.id, { attributes: ['role'] });
+    return user?.role;
+  }
 }
 
 export default LoginService;
