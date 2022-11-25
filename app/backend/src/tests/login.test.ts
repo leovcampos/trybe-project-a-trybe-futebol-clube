@@ -67,4 +67,19 @@ describe('Tests about login rote', () => {
     expect(chaiHttpResponse).to.have.status(200);
     expect(chaiHttpResponse.body).to.haveOwnProperty('token');
   });
+
+  it('Expect status 400 when req without email', async () => {
+    const invalidReq = {
+      password: 'password'
+    }
+
+    chaiHttpResponse = await chai
+    .request(app)
+    .post('/login')
+    .send({ ...invalidReq })
+
+    expect(chaiHttpResponse).to.have.status(400);
+    expect(chaiHttpResponse.body).to.haveOwnProperty('message');
+    expect(chaiHttpResponse.body.message).to.be.eq('All fields must be filled');
+  })
 });
