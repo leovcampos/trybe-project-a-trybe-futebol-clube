@@ -1,22 +1,15 @@
-import Exception from '../middlewares/exception';
 import Team from '../database/models/Team';
 
-export default class TeamsService {
-  findAll = async () => {
-    const result: Team[] = await Team.findAll();
+class TeamsService {
+  static async getAll(): Promise<Team[]> {
+    const allTeams = await Team.findAll();
+    return allTeams;
+  }
 
-    return { status: 200, message: result };
-  };
-
-  findOne = async (id:string) => {
-    const result: Team | null = await Team.findOne({ where: {
-      id,
-    } });
-
-    if (result === null) {
-      throw new Exception(404, 'Team not found');
-    }
-
-    return { status: 200, message: result };
-  };
+  static async getTeam(id: string): Promise<Team | null> {
+    const team = await Team.findByPk(id);
+    return team;
+  }
 }
+
+export default TeamsService;

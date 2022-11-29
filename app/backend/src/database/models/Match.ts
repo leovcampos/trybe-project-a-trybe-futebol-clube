@@ -4,6 +4,7 @@ import db from '.';
 
 class Match extends Model {
   // declare <campo>: <tipo>;
+  declare inProgress: boolean;
 }
 
 Match.init({
@@ -16,7 +17,6 @@ Match.init({
   homeTeam: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    field: 'home_team',
     references: {
       model: 'teams',
       key: 'id',
@@ -25,12 +25,10 @@ Match.init({
   homeTeamGoals: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    field: 'home_team_goals',
   },
   awayTeam: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    field: 'away_team',
     references: {
       model: 'teams',
       key: 'id',
@@ -39,18 +37,16 @@ Match.init({
   awayTeamGoals: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    field: 'away_team_goals',
   },
   inProgress: {
     type: DataTypes.BOOLEAN,
-    field: 'in_progress',
     allowNull: false,
   },
 }, {
   // ... Outras configs
   underscored: true,
   sequelize: db,
-  // modelName: 'example',
+  modelName: 'Match',
   tableName: 'matches',
   timestamps: false,
 });
