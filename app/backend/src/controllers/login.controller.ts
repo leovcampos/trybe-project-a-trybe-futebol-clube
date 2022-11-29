@@ -13,6 +13,17 @@ class loginController {
 
     return res.status(200).json({ token: message });
   }
+
+  static async userData(req: Request, res: Response) {
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).json({ message: 'token not provided' });
+    }
+
+    const userData = loginService.userData(token);
+    return res.status(200).json({ role: userData });
+  }
 }
 
 export default loginController;
