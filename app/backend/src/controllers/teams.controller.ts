@@ -1,17 +1,19 @@
 import { Request, Response } from 'express';
-import teamService from '../services/teams.service';
+import { TeamsService } from '../services';
 
-class TeamContoller {
-  static async findAll(_req: Request, res: Response) {
-    const allTeams = await teamService.findAll();
-    return res.status(200).json(allTeams);
+export default class TeamsController {
+  constructor(private service = new TeamsService()) {}
+
+  async findAll(_req:Request, res:Response): Promise<void> {
+    const response = await this.service.findAll();
+    const { status, message } = response;
+    res.status(status).json(message);
   }
 
-  static async findById(req: Request, res: Response) {
+  async findOne(req:Request, res:Response): Promise<void> {
     const { id } = req.params;
-    const team = await teamService.findById(id);
-    return res.status(200).json(team);
+    const response = await this.service.findOne(id);
+    const { status, message } = response;
+    res.status(status).json(message);
   }
 }
-
-export default TeamContoller;
