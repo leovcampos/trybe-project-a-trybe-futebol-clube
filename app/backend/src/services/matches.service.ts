@@ -33,9 +33,9 @@ class MatchesService {
 
   static async add(creationInfo: IMatchCreationRequest) {
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = creationInfo;
-    const doTeamsExist = await MatchesService.checkTeams([homeTeam, awayTeam]);
-    if (!doTeamsExist) {
-      return { type: 404, message: 'There is no team with such id!' };
+    const teamsExist = await MatchesService.checkTeams([homeTeam, awayTeam]);
+    if (!teamsExist) {
+      return { statusCode: 404, message: 'There is no team with such id!' };
     }
 
     const match = await Match.create({
@@ -46,7 +46,7 @@ class MatchesService {
       inProgress: true,
     });
 
-    return { type: null, message: match };
+    return { statusCode: 201, message: match };
   }
 
   static async finishGame(id: string): Promise<void> {

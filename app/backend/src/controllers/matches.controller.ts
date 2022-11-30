@@ -11,12 +11,12 @@ class MatchesController {
 
   static async add(req: Request, res: Response) {
     const matchCreationRequest = req.body as IMatchCreationRequest;
-    const { type, message } = await MatchesService.add(matchCreationRequest);
-    if (type) {
-      return res.status(type).json({ message });
+    const { statusCode, message } = await MatchesService.add(matchCreationRequest);
+    if (statusCode) {
+      return res.status(statusCode).json({ message });
     }
 
-    return res.status(201).json(message);
+    return res.status(statusCode).json(message);
   }
 
   static async finishGame(req: Request, res: Response) {
