@@ -26,10 +26,18 @@ class MatchesController {
   }
 
   static async updateGame(req: Request, res: Response) {
-    const { homeTeamGoals, awayTeamGoals } = req.body;
     const { id } = req.params;
-    const match = await MatchesService.updateGame(id, homeTeamGoals, awayTeamGoals);
-    return res.status(200).json(match);
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+
+    const { type, payload } = await MatchesService.updateGame(
+      id,
+      homeTeamGoals,
+      awayTeamGoals,
+    );
+    if (type) {
+      return res.status(type).json({ message: payload });
+    }
+    res.status(200).json({ message: payload });
   }
 }
 

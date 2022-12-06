@@ -57,10 +57,12 @@ class MatchesService {
     id: string,
     homeTeamGoals: number,
     awayTeamGoals: number,
-  ): Promise<IMatchResponse> {
-    await Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
-    const match = await Match.findByPk(id) as IMatchResponse;
-    return match;
+  ) {
+    await Match.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id } },
+    );
+    return { type: null, payload: 'Goals updated successfully' };
   }
 }
 
