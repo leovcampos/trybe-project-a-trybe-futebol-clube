@@ -41,6 +41,7 @@ class LoginService {
   static async userData(token: string): Promise<string | undefined> {
     const decoded = LoginService.decodeToken(token);
     const user = await User.findByPk(decoded.data.id, { attributes: ['role'] });
+    console.log(user?.role);
     return user?.role;
   }
 }

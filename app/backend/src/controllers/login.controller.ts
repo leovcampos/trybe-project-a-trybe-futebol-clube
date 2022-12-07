@@ -21,7 +21,7 @@ class loginController {
       return res.status(401).json({ message: 'token not provided' });
     }
 
-    const userData = loginService.userData(token);
+    const userData = await loginService.userData(token);
     return res.status(200).json({ role: userData });
   }
 }

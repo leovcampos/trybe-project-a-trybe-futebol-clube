@@ -29,13 +29,13 @@ class MatchesController {
     const { id } = req.params;
     const { homeTeamGoals, awayTeamGoals } = req.body;
 
-    const { type, payload } = await MatchesService.updateGame(
+    const { statusCode, payload } = await MatchesService.updateGame(
       id,
       homeTeamGoals,
       awayTeamGoals,
     );
-    if (type) {
-      return res.status(type).json({ message: payload });
+    if (statusCode) {
+      return res.status(statusCode).json({ message: payload });
     }
     res.status(200).json({ message: payload });
   }

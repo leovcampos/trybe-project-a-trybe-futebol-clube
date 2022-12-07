@@ -62,7 +62,7 @@ class MatchesService {
       { homeTeamGoals, awayTeamGoals },
       { where: { id } },
     );
-    return { type: null, payload: 'Goals updated successfully' };
+    return { statusCode: null, payload: 'Goals updated successfully' };
   }
 }
 
