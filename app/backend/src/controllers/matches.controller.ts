@@ -13,7 +13,7 @@ class MatchesController {
     const matchCreationRequest = req.body as IMatchCreationRequest;
     const { statusCode, message } = await MatchesService.add(matchCreationRequest);
     if (statusCode) {
-      return res.status(statusCode).json({ message });
+      return res.status(statusCode).json(message);
     }
 
     return res.status(statusCode).json(message);
