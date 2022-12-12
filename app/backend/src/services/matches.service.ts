@@ -46,7 +46,7 @@ class MatchesService {
       inProgress: true,
     });
 
-    return { statusCode: 201, message: match };
+    return { statusCode: null, message: match };
   }
 
   static async finishGame(id: string): Promise<void> {
